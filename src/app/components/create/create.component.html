@@ -1,0 +1,80 @@
+
+<!-- <head> 
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+    <style>
+        .contenedor-botones {
+            display: block;
+            width: 100%;
+        }
+        .boton-adaptado {
+            width: 43%; 
+        }
+    </style>
+<!-- </head> -->
+
+<div class= "container" *ngIf="project">
+  <h2>{{title}}</h2>
+<div class="message success" *ngIf="status == 'success'">
+  El proyecto se ha creado Correctamente
+</div>
+<div class="message failed" *ngIf="status=='failed'">
+
+    El proyecto No se ha creado 
+  </div>
+  <form #projectForm ="ngForm" (ngSubmit) = "onSubmit(projectForm)">
+<p>
+  <label for="name">Nombre</label>
+  <input type="text" name="name" #name="ngModel" [(ngModel)] = "project.name" required />
+  <span *ngIf = "name.touched && !name.valid"> El nombre es obligatorio</span>
+</p>
+<p>
+    <label for="description">Descripcion</label>
+    <input type="text" name="description" #description="ngModel" [(ngModel)] = "project.description" required/>
+    <span *ngIf = "description.touched && !description.valid"> La descripcion es obligatorio</span>
+
+  </p>
+  <p>
+      <label for="category">Categoria</label>
+      <textarea type="text" name="category" #category="ngModel" [(ngModel)] = "project.category" required ></textarea>
+      <span *ngIf = "category.touched && !category.valid"> La categoria es obligatorio</span>
+
+    </p>
+    <p>
+        <label for="year">Año de Lanzamiento</label>
+        <input type="number" name="year" #year="ngModel" [(ngModel)] = "project.year" />
+      </p>
+      <p>
+          <label for="langs">Lenguajes Utilizados</label>
+          <input type="text" name="langs" #langs="ngModel"  [(ngModel)] = "project.langs" required/>
+          <span *ngIf = "langs.touched && !langs.valid"> el Lenguaje es obligatorio</span>
+
+        </p>
+        <div>Grabar Audio
+          <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+          <br>
+          <p id="duracion"></p> 
+          <br>
+          <div class="btn-group contenedor-botones" >
+          <button   class="btn btn-default boton-adaptado" id="btnComenzarGrabacion" >play</button>
+          <button  class="btn btn-default boton-adaptado"  id="btnDetenerGrabacion">stop</button>
+        </div>
+        </div>
+        <p>
+            <label for="audio">Subir Audio</label>
+            <span class="audio" *ngIf="project.audio" style="float: none;">
+                <audio controls src="{{url+'get-audio/'+project.audio}}" type="audio/mp3" style="width: 100px;">
+                  Your browser does not support the <code>audio</code> element.
+              </audio>
+            </span> 
+            <input type="file" name="audio" placeholder="Subir audio" (change)= "fileChangeEvent($event)"/>
+          </p>
+          <input type="submit" value="Enviar" [disabled]= !projectForm.form.valid />
+       
+  </form>
+</div>
+
+ 

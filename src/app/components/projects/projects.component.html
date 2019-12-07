@@ -1,0 +1,28 @@
+
+<div class="container"> 
+
+  <h2>Proyectos</h2>
+
+
+        <div *ngFor="let project of projects">
+  
+    <br><br><br>
+        
+        <div class="data">
+     <h3>{{project.name}}</h3>
+     <p>   
+        <a [routerLink]="['/editar-proyecto', project._id]" class="button-edit">Editar</a>
+        <a (click)="deleteProject(project._id)" class="button-delete">Borrar</a> 
+       </p> 
+    </div>
+    
+    <div class="audio" *ngIf="project.audio">
+        <audio controls src="{{url+'get-audio/'+project.audio}}" type="audio/mp3">
+          Your browser does not support the <code>audio</code> element.
+      </audio>
+    </div>
+  
+    <!-- </li> -->
+  </div>
+  <!-- </table> -->
+</div>
